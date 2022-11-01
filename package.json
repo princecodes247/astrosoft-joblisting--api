@@ -1,0 +1,30 @@
+{
+  "name": "joblisting-two--api",
+  "version": "1.0.0",
+  "description": "Joblisting server",
+  "main": "app.js",
+  "author": "Prince Gbalam",
+  "license": "MIT",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "celebrate": "^15.0.1",
+    "compression": "^1.7.4",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "dotenv": "^16.0.3",
+    "errorhandler": "^1.5.1",
+    "express": "^4.18.2",
+    "helmet": "^6.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "method-override": "^3.0.0",
+    "mongoose": "^6.7.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
