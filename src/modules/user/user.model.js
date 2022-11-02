@@ -1,4 +1,4 @@
-const { model, Types, Schema, Query } = require("mongoose");
+const { model, Schema } = require("mongoose");
 
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
