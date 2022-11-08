@@ -13,7 +13,7 @@ const createJob = async (req, res) => {
 const getAll = async (req, res, next) => {
   try {
     const jobs = await JobService.getAll();
-    return res.json({ jobs }).status(200);
+    return res.json(jobs).status(200);
   } catch (e) {
     logger.error("🔥 error: %o", e);
     return next(e);

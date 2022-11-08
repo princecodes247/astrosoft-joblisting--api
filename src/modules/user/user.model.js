@@ -6,17 +6,11 @@ const { randomBytes } = require("crypto");
 
 // Schema
 const UserSchema = new Schema({
-  firstName: {
+  name: {
     type: String,
     required: true,
   },
-  lastName: String,
-  username: {
-    type: String,
-    unique: true,
-    required: true,
-    lowercase: true,
-  },
+  bio: String,
   email: {
     type: String,
     unique: true,

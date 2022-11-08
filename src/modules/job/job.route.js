@@ -11,7 +11,7 @@ const route = Router();
 module.exports = (app) => {
   app.use(`/api/v1/jobs`, route);
 
-  route.get("/", JobController.getAll);
+  route.get("/", isAuth(), JobController.getAll);
   route.post("/", JobController.createJob);
   route.get("/:jobId", JobController.getOne);
 };

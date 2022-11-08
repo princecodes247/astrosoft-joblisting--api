@@ -16,7 +16,6 @@ function isAuth(roles = []) {
     try {
       const bearerHeader = req.headers.authorization;
       const signedCookie = req.signedCookies[ACCESS_TOKEN];
-
       if (!signedCookie && !bearerHeader) {
         throw new Error("Unauthorized access: Authorization token not passed");
       }
@@ -24,7 +23,7 @@ function isAuth(roles = []) {
 
       if (bearerHeader) {
         const bearer = bearerHeader.split(" ");
-        [token] = bearer;
+        [, token] = bearer;
       } else if (signedCookie) {
         token = signedCookie;
       } else {
@@ -39,7 +38,7 @@ function isAuth(roles = []) {
       }
 
       const user = await User.findOne(
-        { _id: decoded.uid },
+        { _id: decoded._id },
         { salt: 0, password: 0, __v: 0 }
       );
 

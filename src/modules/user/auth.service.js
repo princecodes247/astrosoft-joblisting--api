@@ -10,7 +10,7 @@ const signUp = async (userInputDTO) => {
     console.log("Creating user db record");
     const userRecord = await UserModel.create(userInputDTO);
     console.log("Generating JWT");
-    const tokens = generateTokens(userRecord);
+    const token = generateToken(userRecord);
 
     if (!userRecord) {
       throw new Error("User cannot be created");
@@ -19,7 +19,7 @@ const signUp = async (userInputDTO) => {
     const user = userRecord.toObject();
     Reflect.deleteProperty(user, "password");
     Reflect.deleteProperty(user, "salt");
-    return { user, tokens };
+    return { user, token };
   } catch (e) {
     console.log("e.message");
     throw e;
@@ -39,7 +39,7 @@ const signIn = async (email, password) => {
   if (validPassword) {
     console.log("Password is valid!");
     console.log("Generating JWT Tokens");
-    const tokens = generateTokens(userRecord);
+    const token = generateToken(userRecord);
 
     const user = userRecord.toObject();
     Reflect.deleteProperty(user, "password");
@@ -47,7 +47,7 @@ const signIn = async (email, password) => {
     /**
      * Easy as pie, you don't need passport.js anymore :)
      */
-    return { user, tokens };
+    return { user, token };
   }
   throw new Error("Invalid Password");
 };
@@ -72,37 +72,12 @@ const generateToken = (user) => {
       _id: user._id, // We are gonna use this in the middleware 'isAuth'
       role: user.role,
       name: user.name,
-      exp: exp.getTime() / 1000,
     },
-    JWT_SECRET
+    JWT_SECRET,
+    {
+      expiresIn: "50d",
+    }
   );
-};
-
-const generateTokens = (user) => {
-  try {
-    console.log(`Generate Access Token: User ID ${user._id}`);
-    const accessToken = jwt.sign(
-      {
-        uid: user._id,
-        email: user.email,
-        name: user.name,
-        role: user.role,
-        verified: user.isVerified,
-      },
-      JWT_SECRET,
-      {
-        expiresIn: "50m",
-      }
-    );
-
-    console.log(`Generate Refresh Token: User ID ${user._id}`);
-    const refreshToken = jwt.sign({ id: user._id }, JWT_SECRET, {
-      expiresIn: "4w",
-    });
-    return { accessToken, refreshToken };
-  } catch ({ message }) {
-    throw new Error(`500---${message}`);
-  }
 };
 
 module.exports = {
