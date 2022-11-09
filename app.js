@@ -39,6 +39,12 @@ app.use(
     origin: "*",
   })
 );
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+  res.set("Origin", origin);
+  res.vary("Origin");
+  next();
+});
 console.log(COOKIE_SECRET);
 // Some sauce that always add since 2014
 // "Lets you use HTTP verbs such as PUT or DELETE in places where the client doesn't support it."
@@ -112,6 +118,5 @@ app.listen(app.get("port"), () => {
   );
   console.log("Press CTRL-C to stop");
 });
-
 
 module.exports = app;
