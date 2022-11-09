@@ -7,17 +7,8 @@ const JobSchema = new Schema({
     required: true,
   },
   description: String,
-
-  email: {
-    type: String,
-    unique: true,
-    required: true,
-  },
-  company: String,
-  employer: {
-    type: Boolean,
-    default: false,
-  },
+  poster: String,
+  employer: String,
 });
 
 module.exports = model("Job", JobSchema);
