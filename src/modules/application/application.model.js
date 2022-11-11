@@ -18,10 +18,12 @@ const ApplicationSchema = new Schema({
     enum: ["pending", "accepted", "rejected"],
     default: "pending",
   },
-  data: {
+  contact: {
     // The data that the user submitted with the application
     type: Object,
   },
+
+  resume: String,
   date: {
     // The date that the application was created
     type: Date,
