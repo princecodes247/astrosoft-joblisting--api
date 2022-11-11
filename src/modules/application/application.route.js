@@ -9,7 +9,7 @@ const { Router } = express;
 const route = Router();
 
 module.exports = (app) => {
-  app.use(`/api/v1/applications`, route);
+  app.use(`/api/v1/application`, route);
 
   route.get("/", isAuth(), ApplicationController.getAll);
   route.post("/", ApplicationController.apply);

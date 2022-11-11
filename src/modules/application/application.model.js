@@ -21,6 +21,7 @@ const ApplicationSchema = new Schema({
   contact: {
     // The data that the user submitted with the application
     type: Object,
+    required: true,
   },
 
   resume: String,
