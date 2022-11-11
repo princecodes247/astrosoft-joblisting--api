@@ -12,7 +12,8 @@ const createJob = async (req, res) => {
 
 const getAll = async (req, res, next) => {
   try {
-    const jobs = await JobService.getAll();
+    const { search } = req.query;
+    const jobs = await JobService.getAll(search);
     return res.json(jobs).status(200);
   } catch (e) {
     logger.error("🔥 error: %o", e);

@@ -1,6 +1,10 @@
 const CRUD = require("../crud.factory");
 const JobModel = require("./job.model");
 
-class JobService extends CRUD {}
+class JobService extends CRUD {
+  // async getAll(search) {
+  //     return this._paginatedQuery({ limit, page });
+  // }
+}
 
 module.exports = new JobService(JobModel, "Job");
