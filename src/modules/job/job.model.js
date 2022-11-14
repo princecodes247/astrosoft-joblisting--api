@@ -9,6 +9,14 @@ const JobSchema = new Schema({
   description: String,
   poster: String,
   employer: String,
+  location: {
+    type: String,
+    default: "Remote",
+  },
+  jobType: {
+    type: String,
+    enum: ["internship", "part-time", "full-time", "contract"],
+  },
 });
 
 module.exports = model("Job", JobSchema);
