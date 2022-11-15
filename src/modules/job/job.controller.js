@@ -16,8 +16,8 @@ const createJob = async (req, res) => {
 const getAll = async (req, res, next) => {
   try {
     const { search, limit, page } = req.query;
-    const $text = { $search: search };
-    const jobs = await JobService.getAll(limit, page, $text);
+
+    const jobs = await JobService.getAll(limit, page, search);
     return res.json(jobs).status(200);
   } catch (e) {
     return next(e);

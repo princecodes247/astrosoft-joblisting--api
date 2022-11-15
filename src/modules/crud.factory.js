@@ -73,9 +73,13 @@ class CRUD {
     return count;
   }
 
-  async getAll(limit, page, $text) {
-    console.log({ $text });
-    return this._paginatedQuery({ limit, page }, { $text });
+  async getAll(limit, page, query) {
+    if (typeof query === "string" && query.trim().length === 0)
+      return this._paginatedQuery({ limit, page }, {});
+    const queryObj =
+      typeof query === "string" ? { $text: { $search: query } } : query;
+
+    return this._paginatedQuery({ limit, page }, queryObj);
   }
 
   async update(id, _data) {
