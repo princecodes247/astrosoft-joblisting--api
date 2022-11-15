@@ -19,4 +19,6 @@ const JobSchema = new Schema({
   },
 });
 
+JobSchema.index({ title: "text", location: "text" });
+
 module.exports = model("Job", JobSchema);

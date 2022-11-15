@@ -16,7 +16,7 @@ class CRUD {
     const _limit = Number(limit) || 10;
     const _skip = Number((_page - 1) * _limit) || 0;
     const _sort = sort || { createdAt: -1 };
-
+    console.log("hmm", { query });
     const result = await Promise.all([
       this.Model.find(query, mod)
         .skip(_skip)
@@ -25,6 +25,7 @@ class CRUD {
         .populate(populate),
       this.Model.find(query, mod).countDocuments(),
     ]);
+    // console.log(result[0][0]);
 
     if (Number(_page) * _limit < result[1]) {
       return {
@@ -72,8 +73,9 @@ class CRUD {
     return count;
   }
 
-  async getAll(limit, page) {
-    return this._paginatedQuery({ limit, page });
+  async getAll(limit, page, $text) {
+    console.log({ $text });
+    return this._paginatedQuery({ limit, page }, { $text });
   }
 
   async update(id, _data) {
