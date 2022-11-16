@@ -13,6 +13,11 @@ const JobSchema = new Schema({
     type: String,
     default: "Remote",
   },
+  hasSalaryRange: Boolean,
+  salary: {
+    type: Array,
+    default: [0, 0],
+  },
   jobType: {
     type: String,
     enum: ["internship", "part-time", "full-time", "contract"],

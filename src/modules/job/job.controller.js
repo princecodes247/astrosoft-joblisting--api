@@ -24,6 +24,17 @@ const getAll = async (req, res, next) => {
   }
 };
 
+const getMeta = async (req, res, next) => {
+  try {
+    const { search, limit, page } = req.query;
+
+    const jobs = await JobService.getMeta();
+    return res.json(jobs).status(200);
+  } catch (e) {
+    return next(e);
+  }
+};
+
 const getAllByUser = async (req, res, next) => {
   try {
     console.log("nacksss");
@@ -49,4 +60,5 @@ module.exports = {
   getAll,
   getOne,
   getAllByUser,
+  getMeta,
 };

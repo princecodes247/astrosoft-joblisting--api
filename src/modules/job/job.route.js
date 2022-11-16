@@ -12,6 +12,7 @@ module.exports = (app) => {
   app.use(`/api/v1/jobs`, route);
 
   route.get("/", isAuth(), JobController.getAll);
+  route.get("/meta", isAuth(), JobController.getMeta);
   route.post("/", isAuth(), JobController.createJob);
   route.get("/poster", isAuth(), JobController.getAllByUser);
   route.get("/:jobId", JobController.getOne);
