@@ -6,11 +6,13 @@ const ApplicationSchema = new Schema({
     // A reference to the job that the application is for
     type: Schema.Types.ObjectId,
     ref: "Job",
+    required: true,
   },
   user: {
     // A reference to the user that the application is for
     type: Schema.Types.ObjectId,
     ref: "User",
+    required: true,
   },
   status: {
     // The status of the application

@@ -46,16 +46,18 @@ class CRUD {
   }
 
   async create(data) {
-    const result = new this.Model(data);
-    await result.save().catch((err) => {
+    try {
+      const result = new this.Model(data);
+      await result.save();
+      console.log(result);
+      return {
+        result,
+        error: false,
+      };
+    } catch (err) {
       // logger.error('🔥 error: %o', e);
       throw new Error(err);
-    });
-    console.log(result);
-    return {
-      result,
-      error: false,
-    };
+    }
   }
 
   async getOne(id) {
@@ -73,7 +75,7 @@ class CRUD {
     return count;
   }
 
-  async getAll(limit, page, query) {
+  async getAll(limit, page, query, options = {}) {
     if (typeof query === "string" && query.trim().length === 0)
       return this._paginatedQuery({ limit, page }, {});
     const queryObj =
