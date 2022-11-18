@@ -13,10 +13,23 @@ const JobSchema = new Schema({
     type: String,
     default: "Remote",
   },
-  hasSalaryRange: Boolean,
   salary: {
+    max: {
+      type: Number,
+      default: 0,
+    },
+    min: {
+      type: Number,
+      default: 0,
+    },
+  },
+  isSalaryNegotiable: {
     type: Array,
-    default: [0, 0],
+    default: true,
+  },
+  experience: {
+    type: Number,
+    default: 0,
   },
   jobType: {
     type: String,

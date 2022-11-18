@@ -15,9 +15,15 @@ const createJob = async (req, res) => {
 
 const getAll = async (req, res, next) => {
   try {
-    const { search, limit, page } = req.query;
+    const { search, limit, page, location, jobType } = req.query;
 
-    const jobs = await JobService.getAll(limit, page, search);
+    const jobs = await JobService.getAll(
+      limit,
+      page,
+      search,
+      location,
+      jobType
+    );
     return res.json(jobs).status(200);
   } catch (e) {
     return next(e);

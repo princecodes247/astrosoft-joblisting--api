@@ -76,8 +76,8 @@ class CRUD {
   }
 
   async getAll(limit, page, query, options = {}) {
-    if (typeof query === "string" && query.trim().length === 0)
-      return this._paginatedQuery({ limit, page }, {});
+    // if (typeof query === "string" && query.trim().length === 0)
+    return this._paginatedQuery({ limit, page }, {});
     const queryObj =
       typeof query === "string" ? { $text: { $search: query } } : query;
 
