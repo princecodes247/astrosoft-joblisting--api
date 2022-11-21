@@ -7,16 +7,19 @@ class JobService extends CRUD {
     return this._paginatedQuery({ limit, page }, { poster });
   }
 
-  async getAll(limit, page, search, location, jobType, options = {}) {
+  async getAll(limit, page, search, location, salary, jobType, options = {}) {
     const queryObj = { $text: { $search: search } };
 
-    if (search.trim() == "null" || search.trim().length === 0)
+    if ((search && search.trim() == "null") || search.trim().length === 0)
       delete queryObj.$text;
 
-    if (location.trim() != "null" && location.trim().length !== 0)
-      queryObj.location = location.trim();
-    if (jobType.trim() != "null" && jobType.trim().length !== 0)
-      queryObj.jobType = jobType.trim();
+    if (location && location?.trim() != "null" && location?.trim().length !== 0)
+      queryObj.location = location?.trim();
+    if (jobType && jobType?.trim() != "null" && jobType?.trim().length !== 0)
+      queryObj.jobType = jobType?.trim();
+    if (salary && salary != "null" && salary.length !== 0)
+      queryObj.salary.min = { $gt: salary };
+
     // queryObj.datePosted = datePosted
     // queryObj.location = location
 
@@ -37,7 +40,8 @@ class JobService extends CRUD {
         },
       ]),
     ]);
-
+    console.log(result[2][0]);
+    result[2] = result[2][0];
     return result;
   }
 }

@@ -23,10 +23,6 @@ const JobSchema = new Schema({
       default: 0,
     },
   },
-  isSalaryNegotiable: {
-    type: Array,
-    default: true,
-  },
   experience: {
     type: Number,
     default: 0,
