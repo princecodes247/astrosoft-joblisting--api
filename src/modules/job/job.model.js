@@ -31,6 +31,10 @@ const JobSchema = new Schema({
     type: String,
     enum: ["internship", "part-time", "full-time", "contract"],
   },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 JobSchema.index({ title: "text", location: "text" });

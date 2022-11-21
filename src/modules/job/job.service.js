@@ -7,7 +7,10 @@ class JobService extends CRUD {
     return this._paginatedQuery({ limit, page }, { poster });
   }
 
-  async getAll(limit, page, search, location, salary, jobType, options = {}) {
+  async getAll(
+    { limit, page, sort, search, location, salary, jobType },
+    options = {}
+  ) {
     const queryObj = { $text: { $search: search } };
 
     if ((search && search.trim() == "null") || search.trim().length === 0)
@@ -22,8 +25,17 @@ class JobService extends CRUD {
 
     // queryObj.datePosted = datePosted
     // queryObj.location = location
-
-    return this._paginatedQuery({ limit, page }, queryObj);
+    let _sort = { createdAt: -1 };
+    if (
+      sort &&
+      sort &&
+      sort.trim() != "null" &&
+      sort.trim().length !== 0 &&
+      sort.trim() == "oldest"
+    ) {
+      _sort = { createdAt: 1 };
+    }
+    return this._paginatedQuery({ limit, page, sort: _sort }, queryObj);
   }
 
   async getMeta() {

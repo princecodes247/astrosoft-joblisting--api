@@ -16,11 +16,12 @@ class CRUD {
     const _limit = Number(limit) || 10;
     const _skip = Number((_page - 1) * _limit) || 0;
     const _sort = sort || { createdAt: -1 };
-    console.log("hmm", { query });
+    console.log("hmm", { sort, _sort });
     const result = await Promise.all([
       this.Model.find(query, mod)
         .skip(_skip)
         .limit(_limit)
+        .sort(_sort)
         .lean()
         .populate(populate),
       this.Model.find(query, mod).countDocuments(),
