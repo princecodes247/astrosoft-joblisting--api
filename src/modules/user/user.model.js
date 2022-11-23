@@ -28,6 +28,14 @@ const UserSchema = new Schema({
     default: 0,
     required: true,
   },
+
+  isCompany: {
+    type: Boolean,
+    default: false,
+  },
+
+  cac: String,
+
   employer: {
     type: Boolean,
     default: false,
