@@ -11,6 +11,32 @@ class UserController {
     }
   }
 
+  async getEmployers(req, res, next) {
+    try {
+      const users = await UserService.getEmployers({
+        page: req.body.page,
+        limit: req.body.limit,
+      });
+      return res.json({ users }).status(200);
+    } catch (e) {
+      console.error("🔥 error: %o", e);
+      return next(e);
+    }
+  }
+
+  async getCandidates(req, res, next) {
+    try {
+      const users = await UserService.getCandidates({
+        page: req.body.page,
+        limit: req.body.limit,
+      });
+      return res.json({ users }).status(200);
+    } catch (e) {
+      console.error("🔥 error: %o", e);
+      return next(e);
+    }
+  }
+
   async getOne(req, res, next) {
     try {
       const users = await UserService.getOne(req.params.userId);

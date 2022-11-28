@@ -7,6 +7,9 @@ class ApplicationService extends CRUD {
 
     return result;
   }
+
+  async getApplication(userId, page = 1, limit = 10) {}
+  async getRecentApplications(userId, page = 1, limit = 10) {}
 }
 
 module.exports = new ApplicationService(ApplicationModel, "Application");

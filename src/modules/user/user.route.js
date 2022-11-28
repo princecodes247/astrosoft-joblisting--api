@@ -14,5 +14,8 @@ module.exports = (app) => {
   route.get("/", (req, res) => {
     res.send("hi user");
   });
+
   route.get("/me", isAuth(), UserController.getUserDetails);
+  route.get("/get-employers", UserController.getEmployers);
+  route.get("/get-candidates", UserController.getCandidates);
 };
