@@ -13,11 +13,11 @@ class UserController {
 
   async getEmployers(req, res, next) {
     try {
-      const users = await UserService.getEmployers({
+      const employers = await UserService.getEmployers({
         page: req.body.page,
         limit: req.body.limit,
       });
-      return res.json({ users }).status(200);
+      return res.json({ employers }).status(200);
     } catch (e) {
       console.error("🔥 error: %o", e);
       return next(e);
@@ -26,11 +26,11 @@ class UserController {
 
   async getCandidates(req, res, next) {
     try {
-      const users = await UserService.getCandidates({
+      const candidates = await UserService.getCandidates({
         page: req.body.page,
         limit: req.body.limit,
       });
-      return res.json({ users }).status(200);
+      return res.json({ candidates }).status(200);
     } catch (e) {
       console.error("🔥 error: %o", e);
       return next(e);

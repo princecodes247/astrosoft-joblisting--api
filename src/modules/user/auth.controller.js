@@ -10,8 +10,8 @@ class AuthController {
   async signUp(req, res, next) {
     console.log("Calling Sign-Up endpoint with body: ", req.body);
     try {
-      const { user, tokens } = await AuthService.signUp(req.body);
-      return res.status(201).json({ user, tokens });
+      const { user, token } = await AuthService.signUp(req.body);
+      return res.status(201).json({ user, token });
     } catch (e) {
       console.error("🔥 error: %o", e);
       return next(e);

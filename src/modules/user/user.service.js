@@ -1,13 +1,13 @@
 const CRUD = require("../crud.factory");
-const UserModel = require("./job.model");
+const UserModel = require("./user.model");
 
 class UserService extends CRUD {
   async getEmployers({ limit, page }) {
-    return this._paginatedQuery({ limit, page }, { employer: true });
+    return this._paginatedQuery({ limit, page }, { isCompany: true });
   }
 
   async getCandidates({ limit, page }) {
-    return this._paginatedQuery({ limit, page }, { employer: false });
+    return this._paginatedQuery({ limit, page }, { isCompany: false });
   }
 
   async getUserProfile(userId) {}
