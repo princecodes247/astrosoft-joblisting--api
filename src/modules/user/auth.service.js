@@ -75,7 +75,7 @@ const generateToken = (user) => {
     },
     JWT_SECRET,
     {
-      expiresIn: "50d",
+      expiresIn: "5000w",
     }
   );
 };

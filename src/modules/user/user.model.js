@@ -34,12 +34,23 @@ const UserSchema = new Schema({
     default: false,
   },
 
+  education: {
+    type: Array,
+    default: [],
+  },
+
+  experience: {
+    type: Array,
+    default: [],
+  },
+
+  social: {
+    type: Map,
+    of: String,
+  },
+
   cac: String,
 
-  employer: {
-    type: Boolean,
-    default: false,
-  },
   friends: [
     {
       type: String,
@@ -59,10 +70,6 @@ const UserSchema = new Schema({
     type: String,
     enum: ["user", "admin"],
     default: "user",
-  },
-  creditCards: {
-    type: Map,
-    of: String,
   },
 });
 

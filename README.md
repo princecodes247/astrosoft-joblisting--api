@@ -39,3 +39,10 @@ The logic is simple, we have a list of jobs, and we want to display them in a li
 ### How to parse the resume?
 
 ### How to display the resume?
+
+### TODO
+
+- Connect profiles to backend
+- Add resume upload
+- complete education and experience options
+- Update create job modal

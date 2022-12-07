@@ -18,4 +18,6 @@ module.exports = (app) => {
   route.get("/me", isAuth(), UserController.getUserDetails);
   route.get("/employers", UserController.getEmployers);
   route.get("/candidates", UserController.getCandidates);
+  route.get("/:userId", UserController.getOne);
+  route.post("/update", isAuth(), UserController.updateUserProfile);
 };

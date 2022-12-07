@@ -8,7 +8,14 @@ class ApplicationService extends CRUD {
     return result;
   }
 
-  async getApplication(userId, page = 1, limit = 10) {}
+  async getApplication(userId, page = 1, limit = 10) {
+    const result = await this._paginatedQuery(
+      { limit, page },
+      { user: userId }
+    );
+
+    return result;
+  }
   async getRecentApplications(userId, page = 1, limit = 10) {}
 }
 

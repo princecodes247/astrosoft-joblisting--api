@@ -48,7 +48,24 @@ class UserController {
   }
 
   async getUserDetails(req, res) {
-    return res.json({ data: req.$user }).status(200);
+    let meta;
+    if (req.$user.isCompany) {
+      meta = await UserService.getCompanyDetails(req.$user._id);
+    } else {
+      meta = await UserService.getUserDetails(req.$user._id);
+    }
+
+    return res.json({ data: req.$user, meta }).status(200);
+  }
+
+  async updateUserProfile(req, res, next) {
+    try {
+      const user = await UserService.updateUserProfile(req.$user._id, req.body);
+      return res.json({ user }).status(200);
+    } catch (e) {
+      console.error("🔥 error: %o", e);
+      return next(e);
+    }
   }
 }
 
