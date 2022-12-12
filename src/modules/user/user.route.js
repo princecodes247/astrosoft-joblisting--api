@@ -2,6 +2,7 @@ const express = require("express");
 const { role } = require("../../config");
 const config = require("../../config");
 const { isAuth } = require("../../middlewares");
+const sendEmail = require("../../utils/mailer");
 const UserController = require("./user.controller");
 
 const { Router } = express;
@@ -13,6 +14,7 @@ module.exports = (app) => {
 
   route.get("/", (req, res) => {
     res.send("hi user");
+    sendEmail();
   });
 
   route.get("/me", isAuth(), UserController.getUserDetails);

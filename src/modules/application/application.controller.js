@@ -1,11 +1,26 @@
+const multer = require("multer");
+const AWSUtil = require("../../utils/aws");
 const ApplicationService = require("./application.service");
+const upload = multer();
 
 const apply = async (req, res, next) => {
   try {
-    const result = await ApplicationService.create({
+    // const imagePath = req.files[0].path;
+    // const blob = fs.readFileSync(imagePath);
+
+    const resume = await AWSUtil.uploadFile(req.body.file);
+    // Create a dummy proxy of req.body
+    const body = {
       ...req.body,
       user: req.$user._id,
-    });
+      resume: resume.Location,
+    };
+    console.log(
+      "🚀 ~ file: application.controller.js ~ line 57 ~ apply ~ body",
+      body.resume
+    );
+
+    const result = await ApplicationService.create(body);
     return res.json({ result }).status(200);
   } catch (e) {
     console.error("🔥 error: ", e);

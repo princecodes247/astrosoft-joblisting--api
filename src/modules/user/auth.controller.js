@@ -30,6 +30,19 @@ class AuthController {
       return next(e);
     }
   }
+
+  async verifyOTP(req, res, next) {
+    console.log("Calling verifyOTP endpoint with body: ", req.body);
+    try {
+      const { id } = req.params;
+      const { otp = "000" } = req.body;
+      const { user, token } = await AuthService.verifyOTP(id, otp);
+      return res.status(201).json({ user, token });
+    } catch (e) {
+      console.error("🔥 error: %o", e);
+      return next(e);
+    }
+  }
 }
 
 module.exports = new AuthController();
