@@ -1,28 +1,37 @@
-const axios = require("axios").default;
-// A funtion that makes a request to another server that sends an email with the provided data
+const nodemailer = require("nodemailer");
 
-const sendEmail = async ({ from = "prince", to, subject, text }) => {
-  try {
-    // create an axios instance
-    const axiosInstance = axios.create({
-      baseURL: process.env.MAILER_URL || "http://localhost:2023",
-      timeout: 1000,
-    });
+const transport = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: "princecodes247@gmail.com",
+    pass: "qsnqmfjkulmfnxjj",
+  },
+});
 
-    // make a request to the server
-    const response = await axiosInstance.post("/send-email", {
+const sendEmail = ({
+  from = "prince",
+  to = "gbalamprince6@gmail.com",
+  subject = "test",
+  text = "test",
+}) => {
+  transport.sendMail(
+    {
       from,
-      // to,
-      to: "gbalamprince6@gmail.com",
+      // to: "jenakumoemmanuel@gmail.com",
+      to,
+      // subject: req.body.subject,
       subject,
+      // text: req.body.body,
       text,
-    });
-
-    // return the response
-    return response;
-  } catch (error) {
-    console.log(error);
-  }
+    },
+    (error, info) => {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log("Email sent: " + info.response);
+      }
+    }
+  );
 };
 
 module.exports = sendEmail;
