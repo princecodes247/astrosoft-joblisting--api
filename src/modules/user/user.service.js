@@ -1,3 +1,4 @@
+const uploadFile = require("../../utils/storage");
 const CRUD = require("../crud.factory");
 const UserModel = require("./user.model");
 
@@ -11,6 +12,15 @@ class UserService extends CRUD {
   }
 
   async getUserProfile(userId) {}
+  async updateUserPhoto(userId, file) {
+    // this
+    // Make a call to the storage server to upload the file with the storage service
+    // Then update the user with the new photo url
+
+    const response = await uploadFile(file, "photo");
+    console.log(response.data);
+    const user = await this.update(userId, { photo: response.data.url });
+  }
   async updateUserProfile(userId, data) {
     // this
     const user = await this.update(userId, data);

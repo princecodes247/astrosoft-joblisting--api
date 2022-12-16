@@ -58,6 +58,26 @@ class UserController {
     return res.json({ data: req.$user, meta }).status(200);
   }
 
+  async updateUserPhoto(req, res, next) {
+    try {
+      const user = await UserService.updateUserPhoto(req.$user._id, req.file);
+      return res.json({ user }).status(200);
+    } catch (e) {
+      console.error("🔥 error: %o", e);
+      return next(e);
+    }
+  }
+
+  async updateUserResume(req, res, next) {
+    try {
+      const user = await UserService.updateUserResume(req.$user._id, req.file);
+      return res.json({ user }).status(200);
+    } catch (e) {
+      console.error("🔥 error: %o", e);
+      return next(e);
+    }
+  }
+
   async updateUserProfile(req, res, next) {
     try {
       const user = await UserService.updateUserProfile(req.$user._id, req.body);

@@ -21,5 +21,7 @@ module.exports = (app) => {
   route.get("/employers", UserController.getEmployers);
   route.get("/candidates", UserController.getCandidates);
   route.get("/:userId", UserController.getOne);
+  route.post("/update-photo", isAuth(), UserController.updateUserPhoto);
+  route.post("/update-resume", isAuth(), UserController.updateUserResume);
   route.post("/update", isAuth(), UserController.updateUserProfile);
 };

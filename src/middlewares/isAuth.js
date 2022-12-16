@@ -48,9 +48,9 @@ function isAuth(roles = []) {
       if (user.suspended) {
         throw new Error("Unauthorized access: User has been deactivated");
       }
-      if (!user.verified) {
-        throw new Error("Unauthorized access: User hasn't onboarded");
-      }
+      // if (!user.verified) {
+      //   throw new Error("Unauthorized access: User hasn't onboarded");
+      // }
 
       if (user.role === role.ADMIN) {
         req.$user = user;
