@@ -3,12 +3,49 @@ const CRUD = require("../crud.factory");
 const UserModel = require("./user.model");
 
 class UserService extends CRUD {
-  async getEmployers({ limit, page }) {
-    return this._paginatedQuery({ limit, page }, { isCompany: true });
+  async buyNFT(userId, nftId) {
+    const user = await this.Model.findById(userId);
+    const nft = await NFTService.get(nftId);
+    if (user.balance < nft.price) {
+      throw new Error("Insufficient balance");
+    }
+    user.balance -= nft.price;
+
+    user.nfts.push(nftId);
+    await user.save();
+    return { user, nft };
   }
 
-  async getCandidates({ limit, page }) {
-    return this._paginatedQuery({ limit, page }, { isCompany: false });
+  async deposit(userId, amount) {
+    const user = await this.Model.findById(userId);
+    // Use absolute amount to avoid negative balance
+    user.balance += Math.abs(amount);
+    user.oldBalance = user.balance;
+    await user.save();
+    return user;
+  }
+
+  async withdraw(userId, amount) {
+    const user = await this.Model.findById(userId);
+    // Check if balance is greater than amount to withdraw
+    if (user.balance < amount) {
+      throw new Error("Insufficient balance");
+    }
+    // Use absolute amount to avoid negative balance
+    user.balance -= Math.abs(amount);
+    user.oldBalance = user.balance;
+
+    await user.save();
+    return user;
+  }
+
+  async changeProfit(userId, amount) {
+    const user = await this.Model.findById(userId);
+    user.profit += amount;
+    user.oldProfit = user.profit;
+    await user.save();
+
+    return user;
   }
 
   async getUserProfile(userId) {}
@@ -25,12 +62,6 @@ class UserService extends CRUD {
     // this
     const user = await this.update(userId, data);
     return user;
-  }
-  async getCompanyDetails(userId) {
-    // this
-  }
-  async getUserDetails(userId) {
-    const appliedJobs = await ApplicationService.getApplication(req.$user._id);
   }
 }
 

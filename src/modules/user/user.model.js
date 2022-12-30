@@ -7,11 +7,14 @@ const { randomBytes } = require("crypto");
 
 // Schema
 const UserSchema = new Schema({
-  name: {
+  fname: {
     type: String,
     required: true,
   },
-  bio: String,
+  lname: {
+    type: String,
+    required: true,
+  },
   email: {
     type: String,
     unique: true,
@@ -30,27 +33,36 @@ const UserSchema = new Schema({
     required: true,
   },
 
-  isCompany: {
-    type: Boolean,
-    default: false,
+  balance: {
+    type: Number,
+    default: 0,
   },
 
-  education: {
-    type: Array,
+  oldBalance: {
+    type: Number,
+    default: 0,
+  },
+
+  profit: {
+    type: Number,
+    default: 0,
+  },
+
+  oldProfit: {
+    type: Number,
+    default: 0,
+  },
+
+  nfts: {
+    type: [
+      {
+        // A reference to the job that the application is for
+        type: Schema.Types.ObjectId,
+        ref: "Collection",
+      },
+    ],
     default: [],
   },
-
-  experience: {
-    type: Array,
-    default: [],
-  },
-
-  social: {
-    type: Map,
-    of: String,
-  },
-
-  cac: String,
 
   otp: {
     type: String,

@@ -1,13 +1,7 @@
 const { model, Schema } = require("mongoose");
 
-// Schema
-const ApplicationSchema = new Schema({
-  job: {
-    // A reference to the job that the application is for
-    type: Schema.Types.ObjectId,
-    ref: "Job",
-    required: true,
-  },
+// Transaction History Schema
+const HistorySchema = new Schema({
   user: {
     // A reference to the user that the application is for
     type: Schema.Types.ObjectId,
@@ -17,16 +11,25 @@ const ApplicationSchema = new Schema({
   status: {
     // The status of the application
     type: String,
-    enum: ["pending", "accepted", "rejected"],
+    enum: ["pending", "completed", "declined"],
     default: "pending",
   },
-  contact: {
-    // The data that the user submitted with the application
+
+  type: {
+    type: String,
+    enum: ["deposit", "withdraw", "buy", "sell"],
+    required: true,
+  },
+  amount: {
+    type: Number,
+    required: true,
+  },
+
+  details: {
     type: Object,
     required: true,
   },
 
-  resume: String,
   date: {
     // The date that the application was created
     type: Date,
@@ -34,4 +37,4 @@ const ApplicationSchema = new Schema({
   },
 });
 
-module.exports = model("Application", ApplicationSchema);
+module.exports = model("History", HistorySchema);

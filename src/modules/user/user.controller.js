@@ -1,6 +1,67 @@
 const UserService = require("./user.service");
 
 class UserController {
+  async buyNFT(req, res, next) {
+    try {
+      const { user, nft } = await UserService.buyNFT(
+        req.$user._id,
+        req.params.id
+      );
+      const history = await HistoryService.create({
+        user: req.$user._id,
+        amount: nft.price,
+        type: "buy",
+        details: {
+          nft: nft._id,
+        },
+      });
+      return res.json({ user, nft, history }).status(200);
+    } catch (e) {
+      console.error("🔥 error: %o", e);
+      return next(e);
+    }
+  }
+
+  async sellNFT(req, res, next) {}
+
+  async withdraw(req, res, next) {
+    try {
+      const { user } = await UserService.withdraw(
+        req.$user._id,
+        req.body.amount
+      );
+      const history = await HistoryService.create({
+        user: req.$user._id,
+        amount: req.body.amount,
+        type: "withdraw",
+        details: {},
+      });
+      return res.json({ user, history }).status(200);
+    } catch (e) {
+      console.error("🔥 error: %o", e);
+      return next(e);
+    }
+  }
+
+  async deposit(req, res, next) {
+    try {
+      const { user } = await UserService.deposit(
+        req.$user._id,
+        req.body.amount
+      );
+      const history = await HistoryService.create({
+        user: req.$user._id,
+        amount: req.body.amount,
+        type: "deposit",
+        details: {},
+      });
+      return res.json({ user, history }).status(200);
+    } catch (e) {
+      console.error("🔥 error: %o", e);
+      return next(e);
+    }
+  }
+
   async getAllUsers(req, res, next) {
     try {
       const users = await UserService.getAll(req.body.page, req.body.limit);
@@ -39,8 +100,8 @@ class UserController {
 
   async getOne(req, res, next) {
     try {
-      const users = await UserService.getOne(req.params.userId);
-      return res.json({ users }).status(200);
+      const user = await UserService.getOne(req.params.userId);
+      return res.json({ user }).status(200);
     } catch (e) {
       console.error("🔥 error: %o", e);
       return next(e);
@@ -48,14 +109,9 @@ class UserController {
   }
 
   async getUserDetails(req, res) {
-    let meta;
-    if (req.$user.isCompany) {
-      meta = await UserService.getCompanyDetails(req.$user._id);
-    } else {
-      meta = await UserService.getUserDetails(req.$user._id);
-    }
-
-    return res.json({ data: req.$user, meta }).status(200);
+    const user = await UserService.getOne(req.$user._id);
+    console.log(user);
+    return res.json({ user }).status(200);
   }
 
   async updateUserPhoto(req, res, next) {

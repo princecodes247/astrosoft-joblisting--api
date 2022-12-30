@@ -1,7 +1,7 @@
 const dotenv = require("dotenv");
 dotenv.config();
 const api = {
-  prefix: "/api/v1",
+  prefix: "/api",
 };
 
 const config = {

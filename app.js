@@ -76,8 +76,6 @@ app.get("/", (_, res) => {
   res.send("Hello World");
 });
 
-app.get("/user", (_, res) => {});
-
 app.use("", routes());
 
 // Error Handlers

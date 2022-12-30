@@ -12,7 +12,7 @@ module.exports = (app) => {
   app.use(`${config.api.prefix}/auth`, route);
 
   route.post(
-    "/signup",
+    "/register",
     // celebrate({
     //   body: Joi.object({
     //     name: Joi.string().required(),
@@ -25,7 +25,7 @@ module.exports = (app) => {
   );
 
   route.post(
-    "/signin",
+    "/login",
     // celebrate({
     //   body: Joi.object({
     //     email: Joi.string().required().email(),
