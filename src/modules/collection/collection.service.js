@@ -20,7 +20,6 @@ class CollectionService extends CRUD {
     let _sort = { createdAt: -1 };
     if (
       sort &&
-      sort &&
       sort.trim() != "null" &&
       sort.trim().length !== 0 &&
       sort.trim() == "oldest"
